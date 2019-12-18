@@ -1,0 +1,235 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Text;
+using ValidationFramework.Resources;
+using ValidationFramework.Results;
+using ValidationFramework.Validators;
+
+namespace ValidationFramework.Internal
+{
+    public class PropertyRule : IValidationRule
+    {
+        readonly List<IPropertyValidator> _validators = new List<IPropertyValidator>();
+        Func<CascadeMode> _cascadeModeThunk = () => ValidatorOptions.CascadeMode;
+        string _propertyDisplayName;
+        string _propertyName;
+
+        /// <summary>
+		/// String source that can be used to retrieve the display name (if null, falls back to the property name)
+		/// </summary>
+		public IStringSource DisplayName { get; set; }
+
+        private string[] _ruleSet = new string[0];
+        private Func<ValidationContext, bool> _condition;
+
+        public Func<ValidationContext, bool> Condition => _condition;
+
+        public MemberInfo Member { get; }
+
+        /// <summary>
+		/// Function that can be invoked to retrieve the value of the property.
+		/// </summary>
+		public Func<object, object> PropertyFunc { get; }
+
+        /// <summary>
+		/// Dependent rules
+		/// </summary>
+		public List<IValidationRule> DependentRules { get; private set; }
+
+        /// <summary>
+        /// Expression that was used to create the rule.
+        /// </summary>
+        public LambdaExpression Expression { get; }
+
+        /// <summary>
+        /// Function that will be invoked if any of the validators associated with this rule fail.
+        /// </summary>
+        public Action<object> OnFailure { get; set; }
+
+        /// <summary>
+		/// Type of the property being validated
+		/// </summary>
+		public Type TypeToValidate { get; }
+
+        /// <summary>
+		/// Display name for the property.
+		/// </summary>
+		public string GetDisplayName()
+        {
+            string result = null;
+
+            if (DisplayName != null)
+            {
+                result = DisplayName.GetString(null);
+            }
+
+            if (result == null)
+            {
+                result = _propertyDisplayName;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Display name for the property.
+        /// </summary>
+        public string GetDisplayName(IValidationContext context)
+        {
+            string result = null;
+
+            if (DisplayName != null)
+            {
+                result = DisplayName.GetString(context);
+            }
+
+            if (result == null)
+            {
+                result = _propertyDisplayName;
+            }
+
+            return result;
+        }
+
+        public Func<object, object> Transformer { get; set; }
+
+        /// <summary>
+		/// Cascade mode for this rule.
+		/// </summary>
+		public CascadeMode CascadeMode
+        {
+            get => _cascadeModeThunk();
+            set => _cascadeModeThunk = () => value;
+        }
+
+        public IEnumerable<IPropertyValidator> Validators => _validators;
+
+        public PropertyRule(MemberInfo member, Func<object, object> propertyFunc, LambdaExpression expression, Func<CascadeMode> cascadeModeThunk, Type typeToValidate, Type containerType)
+        {
+            Member = member;
+            PropertyFunc = propertyFunc;
+            Expression = expression;
+            OnFailure = x => { };
+            TypeToValidate = typeToValidate;
+            this._cascadeModeThunk = cascadeModeThunk;
+        }
+
+        /// <summary>
+		/// Creates a new property rule from a lambda expression.
+		/// </summary>
+		public static PropertyRule Create<T, TProperty>(Expression<Func<T, TProperty>> expression)
+        {
+            return Create(expression, () => ValidatorOptions.CascadeMode);
+        }
+
+        public static PropertyRule Create<T, TProperty>(Expression<Func<T, TProperty>> expression, Func<CascadeMode> cascadeModeThunk, bool bypassCache = false)
+        {
+            var member = expression.GetMember();
+            var compiled = AccessorCache<T>.GetCachedAccessor(member, expression, bypassCache);
+            return new PropertyRule(member, compiled.CoerceToNonGeneric(), expression, cascadeModeThunk, typeof(TProperty), typeof(T));
+        }
+
+        /// <summary>
+		/// Adds a validator to the rule.
+		/// </summary>
+		public void AddValidator(IPropertyValidator validator)
+        {
+            _validators.Add(validator);
+        }
+
+        /// <summary>
+        /// Replaces a validator in this rule. Used to wrap validators.
+        /// </summary>
+        public void ReplaceValidator(IPropertyValidator original, IPropertyValidator newValidator)
+        {
+            var index = _validators.IndexOf(original);
+
+            if (index > -1)
+            {
+                _validators[index] = newValidator;
+            }
+        }
+
+        /// <summary>
+        /// Remove a validator in this rule.
+        /// </summary>
+        public void RemoveValidator(IPropertyValidator original)
+        {
+            _validators.Remove(original);
+        }
+
+        /// <summary>
+        /// Clear all validators from this rule.
+        /// </summary>
+        public void ClearValidators()
+        {
+            _validators.Clear();
+        }
+
+        public string[] RuleSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public void ApplyCondition(Func<PropertyValidatorContext, bool> predicate, ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string PropertyName
+        {
+            get { return _propertyName; }
+            set
+            {
+                _propertyName = value;
+                _propertyDisplayName = _propertyName.SplitPascalCase();
+            }
+        }
+
+        public Func<MessageBuilderContext, string> MessageBuilder { get; set; }
+
+        /// <summary>
+		/// Dependent rules
+		/// </summary>
+		
+
+        public IEnumerable<ValidationFailure> Validate(ValidationContext context)
+        {
+            string displayName = GetDisplayName(context);
+            if (PropertyName == null && displayName == null)
+            {
+                //No name has been specified. Assume this is a model-level rule, so we should use empty string instead.
+                displayName = string.Empty;
+            }
+            // Construct the full name of the property, taking into account overriden property names and the chain (if we're in a nested validator)
+            string propertyName = context.PropertyChain.BuildPropertyName(PropertyName ?? displayName);
+            var cascade = _cascadeModeThunk();
+            bool hasAnyFailure = false;
+            // Invoke each validator and collect its results.
+            foreach (var validator in _validators)
+            {
+                IEnumerable<ValidationFailure> results;
+                    results = InvokePropertyValidator(context, validator, propertyName);
+
+                bool hasFailure = false;
+
+                foreach (var result in results)
+                {
+                    hasAnyFailure = true;
+                    hasFailure = true;
+                    yield return result;
+                }
+            }
+        }
+
+        /// <summary>
+		/// Invokes a property validator using the specified validation context.
+		/// </summary>
+		protected virtual IEnumerable<ValidationFailure> InvokePropertyValidator(ValidationContext context, IPropertyValidator validator, string propertyName)
+        {
+            var propertyContext = new PropertyValidatorContext(context, this, propertyName);
+            if (validator.Options.Condition != null && !validator.Options.Condition(propertyContext)) return Enumerable.Empty<ValidationFailure>();
+            return validator.Validate(propertyContext);
+        }
+    }
+}
