@@ -516,10 +516,11 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "TT+QCi9LcxGTjBssH7S7n5+8DVcwfG4DYgXX7Dk7+BfZ4oVHj8Q0CbYk9glzAlHLsSt3bYzol+fOdra2iu6GOw==",
+      "sha512": "GmkKfoyerqmsHMn7OZj0AKpcBabD+GaafqphvX2Mw406IwiJRy1pKcKqdCfKJfYmkRyJ6+e+RaUylgdJoDa1jQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -548,10 +549,11 @@
       ]
     },
     "NETStandard.Library/2.0.3": {
-      "sha512": "gmFGfVcX4SS+RB0jozU3ihvfZlq7CMmyIkAFKTga7lXxi62lWFl5oaTQgt3pUU117E3bDOeFbYoBIsy9vvIqyw==",
+      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
       "path": "netstandard.library/2.0.3",
       "files": [
+        ".nupkg.metadata",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -681,23 +683,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Users\\KIANTO\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\validationFramework\\ValidationFramework\\ValidationFramework\\ValidationFramework.csproj",
+      "projectUniqueName": "D:\\Education\\HK7\\OOP Design Patterns\\PROJECT VALIDATION\\validationFramework\\ValidationFramework\\ValidationFramework.csproj",
       "projectName": "ValidationFramework",
-      "projectPath": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\validationFramework\\ValidationFramework\\ValidationFramework\\ValidationFramework.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\validationFramework\\ValidationFramework\\ValidationFramework\\obj\\",
+      "projectPath": "D:\\Education\\HK7\\OOP Design Patterns\\PROJECT VALIDATION\\validationFramework\\ValidationFramework\\ValidationFramework.csproj",
+      "packagesPath": "C:\\Users\\KIANTO\\.nuget\\packages\\",
+      "outputPath": "D:\\Education\\HK7\\OOP Design Patterns\\PROJECT VALIDATION\\validationFramework\\ValidationFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\KIANTO\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

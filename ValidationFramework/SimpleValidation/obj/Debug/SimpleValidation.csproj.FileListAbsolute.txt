@@ -1,0 +1,7 @@
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\obj\Debug\SimpleValidation.csprojAssemblyReference.cache
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\obj\Debug\SimpleValidation.csproj.CoreCompileInputs.cache
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\bin\Debug\SimpleValidation.exe.config
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\bin\Debug\SimpleValidation.exe
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\bin\Debug\SimpleValidation.pdb
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\obj\Debug\SimpleValidation.exe
+D:\Education\HK7\OOP Design Patterns\PROJECT VALIDATION\validationFramework\SimpleValidation\obj\Debug\SimpleValidation.pdb
