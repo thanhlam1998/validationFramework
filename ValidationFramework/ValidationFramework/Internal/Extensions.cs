@@ -16,6 +16,18 @@ namespace ValidationFramework.Internal
             }
         }
 
+        internal static void Guard(this string str, string message, string paramName)
+        {
+            if(str == null)
+            {
+                throw new ArgumentNullException(paramName, message); 
+            }
+            if (string.IsNullOrEmpty(str))
+            {
+                throw new ArgumentException(message, paramName);
+            }
+        }
+
         public static MemberInfo GetMember<T,TProperty>(this Expression<Func<T,TProperty>> expression)
         {
             var memberExp = RemoveUnary(expression.Body) as MemberExpression;

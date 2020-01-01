@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ValidationFramework.Internal
 {
-
     /// <summary>
     /// Assist in the construction of validation message
     /// </summary>
     public class MessageFormatter
     {
+        private static readonly Regex _templateRegex = new Regex("{[^{}]+:.+}"); 
+        private static readonly Regex _keyRegex = new Regex("{([^{}:]+)(?::([^{}]+))?}");
         readonly Dictionary<string, object> _placeholderValues = new Dictionary<string, object>(2);
         object[] _additionalArguments = new object[0];
 
@@ -61,5 +63,36 @@ namespace ValidationFramework.Internal
 		/// Additional placeholder values
 		/// </summary>
 		public Dictionary<string, object> PlaceholderValues => _placeholderValues;
+
+        /// <summary>
+		/// Constructs the final message from the specified template. 
+		/// </summary>
+		/// <param name="messageTemplate">Message template</param>
+		/// <returns>The message with placeholders replaced with their appropriate values</returns>
+		public virtual string BuildMessage(string messageTemplate)
+        {
+
+            string result = messageTemplate;
+            result = ReplacePlaceholdersWithValues(result, _placeholderValues);
+            return result;
+        }
+
+        protected virtual string ReplacePlaceholdersWithValues(string template, IDictionary<string, object> values)
+        {
+            return _keyRegex.Replace(template, m => {
+                var key = m.Groups[1].Value;
+
+                if (!values.ContainsKey(key))
+                    return m.Value; // No placeholder / value
+
+                var format = m.Groups[2].Success // Format specified?
+                    ? $"{{0:{m.Groups[2].Value}}}"
+                    : null;
+
+                return format == null
+                    ? values[key]?.ToString()
+                    : string.Format(format, values[key]);
+            });
+        }
     }
 }

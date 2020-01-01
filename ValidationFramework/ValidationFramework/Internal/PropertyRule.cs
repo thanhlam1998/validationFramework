@@ -50,6 +50,11 @@ namespace ValidationFramework.Internal
         public Action<object> OnFailure { get; set; }
 
         /// <summary>
+		/// The current validator being configured by this rule.
+		/// </summary>
+        public IPropertyValidator CurrentValidator => _validators.LastOrDefault();
+
+        /// <summary>
 		/// Type of the property being validated
 		/// </summary>
 		public Type TypeToValidate { get; }
@@ -115,6 +120,8 @@ namespace ValidationFramework.Internal
             OnFailure = x => { };
             TypeToValidate = typeToValidate;
             this._cascadeModeThunk = cascadeModeThunk;
+            PropertyName = ValidatorOptions.PropertyNameResolver(containerType, member, expression);
+
         }
 
         /// <summary>

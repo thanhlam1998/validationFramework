@@ -16,9 +16,10 @@ namespace ValidationFramework.Internal
             ParentValidator = parent;
         }
 
-        public IRuleBuilderOptions<T, TProperty> Configure(Action<PropertyRule> configuration)
+        public IRuleBuilderOptions<T, TProperty> Configure(Action<PropertyRule> configurator)
         {
-            throw new NotImplementedException();
+            configurator(Rule);
+            return this;
         }
 
         public IRuleBuilderOptions<T, TProperty> SetValidator(IPropertyValidator validator)

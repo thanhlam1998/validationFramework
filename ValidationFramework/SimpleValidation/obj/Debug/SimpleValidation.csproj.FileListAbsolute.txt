@@ -1,0 +1,7 @@
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\bin\Debug\SimpleValidation.exe.config
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\bin\Debug\SimpleValidation.exe
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\bin\Debug\SimpleValidation.pdb
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\obj\Debug\SimpleValidation.csprojAssemblyReference.cache
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\obj\Debug\SimpleValidation.csproj.CoreCompileInputs.cache
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\obj\Debug\SimpleValidation.exe
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\SimpleValidation\obj\Debug\SimpleValidation.pdb

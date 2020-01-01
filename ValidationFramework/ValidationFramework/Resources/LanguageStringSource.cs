@@ -14,6 +14,12 @@ namespace ValidationFramework.Resources
             _key = key;
         }
 
+        public LanguageStringSource(Func<IValidationContext, string> errorCodeFunc, string fallbackKey)
+        {
+            ErrorCodeFunc = errorCodeFunc;
+            _key = fallbackKey;
+        }
+
         public string GetString(IValidationContext context)
         {
             var errorCode = ErrorCodeFunc?.Invoke(context);

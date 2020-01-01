@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using ValidationFramework.Internal;
 using ValidationFramework.Resources;
@@ -27,6 +30,9 @@ namespace ValidationFramework
         public static ValidatorSelectorOptions ValidatorSelectors { get; } = new ValidatorSelectorOptions();
 
         private static Func<PropertyValidator, string> _errorCodeResolver = DefaultErrorCodeResolver;
+
+        private static Func<Type, MemberInfo, LambdaExpression, string> _propertyNameResolver = DefaultPropertyNameResolver;
+		private static Func<Type, MemberInfo, LambdaExpression, string> _displayNameResolver = DefaultDisplayNameResolver;
 
         private static Func<MessageFormatter> _messageFormatterFactory = () => new MessageFormatter();
         /// <summary>
@@ -61,17 +67,53 @@ namespace ValidationFramework
         {
             return validator.GetType().Name;
         }
+
+        /// <summary>
+        /// Pluggable logic for resolving property names
+        /// </summary>
+        public static Func<Type, MemberInfo, LambdaExpression, string> PropertyNameResolver
+        {
+            get => _propertyNameResolver;
+            set => _propertyNameResolver = value ?? DefaultPropertyNameResolver;
+        }
+
+        /// <summary>
+		/// Pluggable logic for resolving display names
+		/// </summary>
+		public static Func<Type, MemberInfo, LambdaExpression, string> DisplayNameResolver
+        {
+            get => _displayNameResolver;
+            set => _displayNameResolver = value ?? DefaultDisplayNameResolver;
+        }
+
+        static string DefaultPropertyNameResolver(Type type, MemberInfo memberInfo, LambdaExpression expression)
+        {
+            if (expression != null)
+            {
+                var chain = PropertyChain.FromExpression(expression);
+                if (chain.Count > 0) return chain.ToString();
+            }
+
+            return memberInfo?.Name;
+        }
+
+        static string DefaultDisplayNameResolver(Type type, MemberInfo memberInfo, LambdaExpression expression)
+        {
+            return memberInfo == null ? null : DisplayNameCache.GetCachedDisplayName(memberInfo);
+        }
+
+
     }
 
     public class ValidatorSelectorOptions
     {
         private Func<IValidatorSelector> _defaultValidatorSelector = () => new DefaultValidatorSelector();
-        private Func<string[], IValidatorSelector> _memberNmaeValidatorSelector = properties => new MemberNameValidatorSelector(properties);
+        private Func<string[], IValidatorSelector> _memberNameValidatorSelector = properties => new MemberNameValidatorSelector(properties);
          /// <summary>
 		/// Factory func for creating the default validator selector
 		/// </summary>
 		public Func<IValidatorSelector> DefaultValidatorSelectorFactory
-        {
+        {   
             get => _defaultValidatorSelector;
             set => _defaultValidatorSelector = value ?? (() => new DefaultValidatorSelector());
         }

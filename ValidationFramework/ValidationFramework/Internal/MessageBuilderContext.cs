@@ -37,7 +37,7 @@ namespace ValidationFramework.Internal
 
         public string GetDefaultMessage()
         {
-            return ErrorSource.GetString(_innerContext);
+            return MessageFormatter.BuildMessage(ErrorSource.GetString(_innerContext));
         }
     }
 }

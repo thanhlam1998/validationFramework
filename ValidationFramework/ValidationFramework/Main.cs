@@ -11,6 +11,11 @@ namespace ValidationFramework
         public string Address { get; set; }
     }
 
+    class Boss
+    {
+        public string name { get; set; }
+    }
+
     class CustomerValidation : AbstractValidation<Customer>
     {
         public CustomerValidation()
@@ -27,12 +32,13 @@ namespace ValidationFramework
             Console.Write("Nhap 1 chuoi bat ki: ");
             str = Console.ReadLine();
             Customer cus = new Customer();
+            Boss boss = new Boss();
             cus.Address = str;
             CustomerValidation validate = new CustomerValidation();
             ValidationResult results = validate.Validate(cus);
             if (!results.IsValid)
             {
-                foreach (var failure in results.Errors)
+                foreach (var failure in results.Errors) 
                 {
                     Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
                 }

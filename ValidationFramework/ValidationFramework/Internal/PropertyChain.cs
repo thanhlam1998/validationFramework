@@ -83,21 +83,50 @@ namespace ValidationFramework.Internal
         }
 
         /// <summary>
+		/// Creates a PropertyChain from a lambda expression
+		/// </summary>
+		/// <param name="expression"></param>
+		/// <returns></returns>
+		public static PropertyChain FromExpression(LambdaExpression expression)
+        {
+            var memberNames = new Stack<string>();
+
+            var getMemberExp = new Func<Expression, MemberExpression>(toUnwrap => {
+                if (toUnwrap is UnaryExpression)
+                {
+                    return ((UnaryExpression)toUnwrap).Operand as MemberExpression;
+                }
+
+                return toUnwrap as MemberExpression;
+            });
+
+            var memberExp = getMemberExp(expression.Body);
+
+            while (memberExp != null)
+            {
+                memberNames.Push(memberExp.Member.Name);
+                memberExp = getMemberExp(memberExp.Expression);
+            }
+
+            return new PropertyChain(memberNames);
+        }
+
+        /// <summary>
         /// Creates a string representation of a property chain.
         /// </summary>
-        //public override string ToString()
-        //      {
-        //          // Performance: Calling string.Join causes much overhead when it's not needed.
-        //          switch (_memberNames.Count)
-        //          {
-        //              case 0:
-        //                  return string.Empty;
-        //              case 1:
-        //                  return _memberNames[0];
-        //              default:
-        //                  return string.Join(ValidatorOptions.PropertyChainSeparator, _memberNames);
-        //          }
-        //      }
+        public override string ToString()
+        {
+            // Performance: Calling string.Join causes much overhead when it's not needed.
+            switch (_memberNames.Count)
+            {
+                case 0:
+                    return string.Empty;
+                case 1:
+                    return _memberNames[0];
+                default:
+                    return string.Join(ValidatorOptions.PropertyChainSeparator, _memberNames);
+            }
+        }
 
         /// <summary>
         /// Builds a property path.
