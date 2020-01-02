@@ -25,7 +25,7 @@ namespace ValidationFramework
         {
             context.Guard("Can not pass null to Validate", nameof(context));
             return Validate(context.ToGeneric<T>());
-        }
+        }   
 
 
         public ValidationResult Validate(object instance)
@@ -42,7 +42,7 @@ namespace ValidationFramework
 
         public ValidationResult Validate(T instance)
         {
-            return Validate(new ValidationContext<T>(instance, new PropertyChain()));
+            return Validate(new ValidationContext<T>(instance));
         }
 
         public ValidationResult Validate(ValidationContext<T> context)
@@ -57,7 +57,6 @@ namespace ValidationFramework
             {
                 result.Errors.Add(validationFailure);
             }
-
             return result;  
         }
 

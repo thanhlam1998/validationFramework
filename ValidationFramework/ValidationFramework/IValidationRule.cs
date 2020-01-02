@@ -12,9 +12,6 @@ namespace ValidationFramework
         /// The validators are grouped under this rule
         /// </summary>
         IEnumerable<IPropertyValidator> Validators { get; }
-
         IEnumerable<ValidationFailure> Validate(ValidationContext context);
-
-        void ApplyCondition(Func<PropertyValidatorContext, bool> predicate, ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators);
     }
 }

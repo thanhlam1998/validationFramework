@@ -27,7 +27,6 @@ namespace ValidationFramework.Validators
             PropertyName = propertyName;
             _propertyValueContainer = new Lazy<object>(() => {
                 var value = rule.PropertyFunc(parentContext.InstanceToValidate);
-                if (rule.Transformer != null) value = rule.Transformer(value);
                 return value;
             });
         }

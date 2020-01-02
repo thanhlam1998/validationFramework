@@ -22,15 +22,7 @@ namespace ValidationFramework
 		/// </summary>
 		public static bool DisableAccessorCache { get; set; }
 
-        /// <summary>
-		/// Default property chain separator
-		/// </summary>
-		public static string PropertyChainSeparator = ".";
-
         private static Func<PropertyValidator, string> _errorCodeResolver = DefaultErrorCodeResolver;
-
-        private static Func<Type, MemberInfo, LambdaExpression, string> _propertyNameResolver = DefaultPropertyNameResolver;
-		private static Func<Type, MemberInfo, LambdaExpression, string> _displayNameResolver = DefaultDisplayNameResolver;
 
         private static Func<MessageFormatter> _messageFormatterFactory = () => new MessageFormatter();
         /// <summary>
@@ -64,35 +56,6 @@ namespace ValidationFramework
         static string DefaultErrorCodeResolver(PropertyValidator validator)
         {
             return validator.GetType().Name;
-        }
-
-        /// <summary>
-        /// Pluggable logic for resolving property names
-        /// </summary>
-        public static Func<Type, MemberInfo, LambdaExpression, string> PropertyNameResolver
-        {
-            get => _propertyNameResolver;
-            set => _propertyNameResolver = value ?? DefaultPropertyNameResolver;
-        }
-
-        /// <summary>
-		/// Pluggable logic for resolving display names
-		/// </summary>
-		public static Func<Type, MemberInfo, LambdaExpression, string> DisplayNameResolver
-        {
-            get => _displayNameResolver;
-            set => _displayNameResolver = value ?? DefaultDisplayNameResolver;
-        }
-
-        static string DefaultPropertyNameResolver(Type type, MemberInfo memberInfo, LambdaExpression expression)
-        {
-            if (expression != null)
-            {
-                var chain = PropertyChain.FromExpression(expression);
-                if (chain.Count > 0) return chain.ToString();
-            }
-
-            return memberInfo?.Name;
         }
 
         static string DefaultDisplayNameResolver(Type type, MemberInfo memberInfo, LambdaExpression expression)

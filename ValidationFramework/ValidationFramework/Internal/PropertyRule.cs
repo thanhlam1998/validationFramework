@@ -22,10 +22,6 @@ namespace ValidationFramework.Internal
 		/// </summary>
 		public IStringSource DisplayName { get; set; }
 
-        private Func<ValidationContext, bool> _condition;
-
-        public Func<ValidationContext, bool> Condition => _condition;
-
         public MemberInfo Member { get; }
 
         /// <summary>
@@ -34,19 +30,9 @@ namespace ValidationFramework.Internal
 		public Func<object, object> PropertyFunc { get; }
 
         /// <summary>
-		/// Dependent rules
-		/// </summary>
-		public List<IValidationRule> DependentRules { get; private set; }
-
-        /// <summary>
         /// Expression that was used to create the rule.
         /// </summary>
         public LambdaExpression Expression { get; }
-
-        /// <summary>
-        /// Function that will be invoked if any of the validators associated with this rule fail.
-        /// </summary>
-        public Action<object> OnFailure { get; set; }
 
         /// <summary>
 		/// The current validator being configured by this rule.
@@ -98,8 +84,6 @@ namespace ValidationFramework.Internal
             return result;
         }
 
-        public Func<object, object> Transformer { get; set; }
-
         /// <summary>
 		/// Cascade mode for this rule.
 		/// </summary>
@@ -116,10 +100,9 @@ namespace ValidationFramework.Internal
             Member = member;
             PropertyFunc = propertyFunc;
             Expression = expression;
-            OnFailure = x => { };
             TypeToValidate = typeToValidate;
             this._cascadeModeThunk = cascadeModeThunk;
-            PropertyName = ValidatorOptions.PropertyNameResolver(containerType, member, expression);
+            PropertyName = member.Name.ToString();
 
         }
 
@@ -175,11 +158,6 @@ namespace ValidationFramework.Internal
             _validators.Clear();
         }
 
-        public void ApplyCondition(Func<PropertyValidatorContext, bool> predicate, ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators)
-        {
-            throw new NotImplementedException();
-        }
-
         public string PropertyName
         {
             get { return _propertyName; }
@@ -206,21 +184,15 @@ namespace ValidationFramework.Internal
                 displayName = string.Empty;
             }
             // Construct the full name of the property, taking into account overriden property names and the chain (if we're in a nested validator)
-            string propertyName = context.PropertyChain.BuildPropertyName(PropertyName ?? displayName);
+            //string propertyName = context.PropertyChain.BuildPropertyName(PropertyName ?? displayName);
             var cascade = _cascadeModeThunk();
-            bool hasAnyFailure = false;
             // Invoke each validator and collect its results.
             foreach (var validator in _validators)
             {
                 IEnumerable<ValidationFailure> results;
-                    results = InvokePropertyValidator(context, validator, propertyName);
-
-                bool hasFailure = false;
-
+                results = InvokePropertyValidator(context, validator, PropertyName);
                 foreach (var result in results)
                 {
-                    hasAnyFailure = true;
-                    hasFailure = true;
                     yield return result;
                 }
             }
@@ -232,7 +204,6 @@ namespace ValidationFramework.Internal
 		protected virtual IEnumerable<ValidationFailure> InvokePropertyValidator(ValidationContext context, IPropertyValidator validator, string propertyName)
         {
             var propertyContext = new PropertyValidatorContext(context, this, propertyName);
-            if (validator.Options.Condition != null && !validator.Options.Condition(propertyContext)) return Enumerable.Empty<ValidationFailure>();
             return validator.Validate(propertyContext);
         }
     }
