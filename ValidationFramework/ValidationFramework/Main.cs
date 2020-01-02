@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using ValidationFramework.Results;
 
@@ -21,6 +22,7 @@ namespace ValidationFramework
         public CustomerValidation()
         {
             RuleFor(Customer => Customer.Address).NotNull().NotEmpty();
+            RuleFor(Customer => Customer.Address).Must(Address => Address.Length > 10).WithMessage("Must >10 characters");
         }
     }
 
@@ -29,6 +31,7 @@ namespace ValidationFramework
         public static void Main(string[] args)
         {
             string str;
+            ValidatorOptions.LanguageManager.Culture = new CultureInfo("vi");
             Console.Write("Nhap 1 chuoi bat ki: ");
             str = Console.ReadLine();
             Customer cus = new Customer();

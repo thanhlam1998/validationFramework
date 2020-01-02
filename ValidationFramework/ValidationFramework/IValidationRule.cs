@@ -13,8 +13,6 @@ namespace ValidationFramework
         /// </summary>
         IEnumerable<IPropertyValidator> Validators { get; }
 
-        string[] RuleSets { get; set; }
-
         IEnumerable<ValidationFailure> Validate(ValidationContext context);
 
         void ApplyCondition(Func<PropertyValidatorContext, bool> predicate, ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators);

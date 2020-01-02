@@ -13,7 +13,8 @@ namespace ValidationFramework.Resources
         public LanguageManager()
         {
             var languages = new Language[] {
-                new EnglishLanguage()
+                new EnglishLanguage(),
+                new VietnameseLanguage()
             };
 
             foreach (var language in languages)

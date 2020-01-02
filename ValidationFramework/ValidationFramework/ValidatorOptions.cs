@@ -27,8 +27,6 @@ namespace ValidationFramework
 		/// </summary>
 		public static string PropertyChainSeparator = ".";
 
-        public static ValidatorSelectorOptions ValidatorSelectors { get; } = new ValidatorSelectorOptions();
-
         private static Func<PropertyValidator, string> _errorCodeResolver = DefaultErrorCodeResolver;
 
         private static Func<Type, MemberInfo, LambdaExpression, string> _propertyNameResolver = DefaultPropertyNameResolver;
@@ -103,20 +101,6 @@ namespace ValidationFramework
         }
 
 
-    }
-
-    public class ValidatorSelectorOptions
-    {
-        private Func<IValidatorSelector> _defaultValidatorSelector = () => new DefaultValidatorSelector();
-        private Func<string[], IValidatorSelector> _memberNameValidatorSelector = properties => new MemberNameValidatorSelector(properties);
-         /// <summary>
-		/// Factory func for creating the default validator selector
-		/// </summary>
-		public Func<IValidatorSelector> DefaultValidatorSelectorFactory
-        {   
-            get => _defaultValidatorSelector;
-            set => _defaultValidatorSelector = value ?? (() => new DefaultValidatorSelector());
-        }
     }
 
 }

@@ -42,7 +42,7 @@ namespace ValidationFramework
 
         public ValidationResult Validate(T instance)
         {
-            return Validate(new ValidationContext<T>(instance, new PropertyChain(), ValidatorOptions.ValidatorSelectors.DefaultValidatorSelectorFactory()));
+            return Validate(new ValidationContext<T>(instance, new PropertyChain()));
         }
 
         public ValidationResult Validate(ValidationContext<T> context)

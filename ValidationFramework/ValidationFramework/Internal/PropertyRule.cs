@@ -22,7 +22,6 @@ namespace ValidationFramework.Internal
 		/// </summary>
 		public IStringSource DisplayName { get; set; }
 
-        private string[] _ruleSet = new string[0];
         private Func<ValidationContext, bool> _condition;
 
         public Func<ValidationContext, bool> Condition => _condition;
@@ -175,8 +174,6 @@ namespace ValidationFramework.Internal
         {
             _validators.Clear();
         }
-
-        public string[] RuleSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void ApplyCondition(Func<PropertyValidatorContext, bool> predicate, ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators)
         {

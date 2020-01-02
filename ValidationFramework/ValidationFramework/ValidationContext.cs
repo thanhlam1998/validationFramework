@@ -25,11 +25,11 @@ namespace ValidationFramework
 
     public class ValidationContext<T> : ValidationContext
     {
-        public ValidationContext(T instanceToValidate) : this(instanceToValidate, new PropertyChain(), ValidatorOptions.ValidatorSelectors.DefaultValidatorSelectorFactory())
+        public ValidationContext(T instanceToValidate) : this(instanceToValidate, new PropertyChain())
         {
         }
 
-        public ValidationContext(T instanceToValidate, PropertyChain propertyChain, IValidatorSelector validatorSelector) : base(instanceToValidate, propertyChain, validatorSelector)
+        public ValidationContext(T instanceToValidate, PropertyChain propertyChain) : base(instanceToValidate, propertyChain)
         {
             InstanceToValidate = instanceToValidate;
         }
@@ -46,24 +46,21 @@ namespace ValidationFramework
         /// </summary>
         public IDictionary<string, object> RootContextData { get; private set; } = new Dictionary<string, object>();
 
-        public ValidationContext(object instanceToValidate) : this(instanceToValidate, new PropertyChain(), ValidatorOptions.ValidatorSelectors.DefaultValidatorSelectorFactory())
+        public ValidationContext(object instanceToValidate) : this(instanceToValidate, new PropertyChain())
         {
 
         }
 
-        public ValidationContext(object instanceToValidate, PropertyChain propertyChain, IValidatorSelector validatorSelector)
+        public ValidationContext(object instanceToValidate, PropertyChain propertyChain)
         {
             PropertyChain = new PropertyChain(propertyChain);
             InstanceToValidate = instanceToValidate;
-            Selector = validatorSelector;
         }
 
 
         public PropertyChain PropertyChain { get; private set; }
 
         public object InstanceToValidate { get; private set; }
-        
-        public IValidatorSelector Selector { get; private set; }
 
         public object PropertyValue => throw new NotImplementedException();
 
@@ -81,7 +78,7 @@ namespace ValidationFramework
 
         internal ValidationContext<T> ToGeneric<T>()
         {
-            return new ValidationContext<T>((T)InstanceToValidate, PropertyChain, Selector)
+            return new ValidationContext<T>((T)InstanceToValidate, PropertyChain)
             {
                 IsChildContext = IsChildContext,
                 RootContextData = RootContextData,
