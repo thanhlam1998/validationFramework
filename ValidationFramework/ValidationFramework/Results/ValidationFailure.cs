@@ -55,7 +55,7 @@ namespace ValidationFramework.Results
 		/// Same formatted message can be reused in UI and with same number of format placeholders
 		/// Like "Value {0} that you entered should be {1}"
 		/// </summary>
-		public object[] FormattedMessageArguments { get; set; }
+		//public object[] FormattedMessageArguments { get; set; }
 
         /// <summary>
         /// Gets or sets the formatted message placeholder values.

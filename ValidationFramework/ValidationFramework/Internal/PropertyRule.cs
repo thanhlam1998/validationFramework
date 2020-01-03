@@ -95,7 +95,7 @@ namespace ValidationFramework.Internal
 
         public IEnumerable<IPropertyValidator> Validators => _validators;
 
-        public PropertyRule(MemberInfo member, Func<object, object> propertyFunc, LambdaExpression expression, Func<CascadeMode> cascadeModeThunk, Type typeToValidate, Type containerType)
+        public PropertyRule(MemberInfo member, Func<object, object> propertyFunc, LambdaExpression expression, Func<CascadeMode> cascadeModeThunk, Type typeToValidate)
         {
             Member = member;
             PropertyFunc = propertyFunc;
@@ -118,7 +118,7 @@ namespace ValidationFramework.Internal
         {
             var member = expression.GetMember();
             var compiled = AccessorCache<T>.GetCachedAccessor(member, expression, bypassCache);
-            return new PropertyRule(member, compiled.CoerceToNonGeneric(), expression, cascadeModeThunk, typeof(TProperty), typeof(T));
+            return new PropertyRule(member, compiled.CoerceToNonGeneric(), expression, cascadeModeThunk, typeof(TProperty));
         }
 
         /// <summary>

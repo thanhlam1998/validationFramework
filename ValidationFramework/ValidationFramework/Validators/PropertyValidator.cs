@@ -60,7 +60,7 @@ namespace ValidationFramework.Validators
                 : messageBuilderContext.GetDefaultMessage();
 
             var failure = new ValidationFailure(context.PropertyName, error, context.PropertyValue);
-            failure.FormattedMessageArguments = context.MessageFormatter.AdditionalArguments;
+            //failure.FormattedMessageArguments = context.MessageFormatter.AdditionalArguments;
             failure.FormattedMessagePlaceholderValues = context.MessageFormatter.PlaceholderValues;
             failure.ErrorCode = (Options.ErrorCodeSource != null)
                 ? Options.ErrorCodeSource.GetString(context)

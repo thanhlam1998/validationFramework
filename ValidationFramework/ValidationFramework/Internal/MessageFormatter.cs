@@ -10,10 +10,9 @@ namespace ValidationFramework.Internal
     /// </summary>
     public class MessageFormatter
     {
-        private static readonly Regex _templateRegex = new Regex("{[^{}]+:.+}"); 
         private static readonly Regex _keyRegex = new Regex("{([^{}:]+)(?::([^{}]+))?}");
         readonly Dictionary<string, object> _placeholderValues = new Dictionary<string, object>(2);
-        object[] _additionalArguments = new object[0];
+        //object[] _additionalArguments = new object[0];
 
         /// <summary>
 		/// Default Property Name placeholder.
@@ -57,7 +56,7 @@ namespace ValidationFramework.Internal
             return AppendArgument(PropertyValue, value);
         }
 
-        public object[] AdditionalArguments => _additionalArguments;
+        // object[] AdditionalArguments => _additionalArguments;
 
         /// <summary>
 		/// Additional placeholder values

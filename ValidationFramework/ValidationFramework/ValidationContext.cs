@@ -25,13 +25,10 @@ namespace ValidationFramework
 
     public class ValidationContext<T> : ValidationContext
     {
-        //public ValidationContext(T instanceToValidate) : this(instanceToValidate, new PropertyChain())
-        //{
-        //}
 
         public ValidationContext(T instanceToValidate) : base(instanceToValidate)
         {
-            InstanceToValidate = instanceToValidate;
+            InstanceToValidate = instanceToValidate;   
         }
         public new T InstanceToValidate { get; private set; }
 
@@ -41,11 +38,6 @@ namespace ValidationFramework
     {
         private ValidationContext _parentContext;
 
-        /// <summary>
-        /// Additional data associated with the validation request.
-        /// </summary>
-        public IDictionary<string, object> RootContextData { get; private set; } = new Dictionary<string, object>();
-
         public ValidationContext(object instanceToValidate)
         {
             InstanceToValidate = instanceToValidate;
@@ -54,26 +46,14 @@ namespace ValidationFramework
 
         public object InstanceToValidate { get; private set; }
 
-        public object PropertyValue => throw new NotImplementedException();
+        public object PropertyValue => null;
 
-        public ValidationContext ParentContext => throw new NotImplementedException();
-
-        /// <summary>
-		/// Whether this is a child context
-		/// </summary>
-		public virtual bool IsChildContext { get; internal set; }
-
-        /// <summary>
-        /// Whether this is a child collection context.
-        /// </summary>
-        public virtual bool IsChildCollectionContext { get; internal set; }
+        public ValidationContext ParentContext => _parentContext;
 
         internal ValidationContext<T> ToGeneric<T>()
         {
             return new ValidationContext<T>((T)InstanceToValidate)
             {
-                IsChildContext = IsChildContext,
-                RootContextData = RootContextData,
                 _parentContext = _parentContext
             };
         }

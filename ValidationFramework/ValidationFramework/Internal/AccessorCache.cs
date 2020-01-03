@@ -13,7 +13,7 @@ namespace ValidationFramework.Internal
 
         public static Func<T, TProperty> GetCachedAccessor<TProperty>(MemberInfo member, Expression<Func<T, TProperty>> expression, bool bypassCache = false)
         {
-            if (member == null || bypassCache || ValidatorOptions.DisableAccessorCache)
+            if (member == null || bypassCache)
             {
                 return expression.Compile();
             }

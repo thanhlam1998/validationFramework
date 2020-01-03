@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ValidationFramework.Internal
 {
-    public class RuleBuilder<T, TProperty> : IRuleBuilderOptions<T, TProperty>, IRuleBuilderInitial<T, TProperty>, IExposesParentValidator<T>
+    public class RuleBuilder<T, TProperty> : IRuleBuilderOptions<T, TProperty>, IRuleBuilderInitial<T, TProperty>
     {
         public PropertyRule Rule { get; }
 
@@ -29,20 +29,10 @@ namespace ValidationFramework.Internal
             return this;
         }
 
-        public IRuleBuilderOptions<T, TProperty> SetValidator(IValidator<TProperty> validator, params string[] ruleSets)
-        {
-            throw new NotImplementedException();
-        }
-
         IRuleBuilderInitial<T, TProperty> IConfigurable<PropertyRule, IRuleBuilderInitial<T, TProperty>>.Configure(Action<PropertyRule> configurator)
         {
             configurator(Rule);
             return this;
         }
-    }
-
-    internal interface IExposesParentValidator<T>
-    {
-        IValidator<T> ParentValidator { get; }
     }
 }

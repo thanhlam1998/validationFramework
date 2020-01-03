@@ -11,21 +11,6 @@ namespace ValidationFramework
         private IStringSource _errorSource;
         private IStringSource _errorCodeSource;
 
-        /// <summary>
-		/// Condition associated with the validator. If the condition fails, the validator will not run.
-		/// </summary>
-		public Func<PropertyValidatorContext, bool> Condition { get; private set; }
-
-        /// <summary>
-		/// Function used to retrieve custom state for the validator
-		/// </summary>
-		public Func<PropertyValidatorContext, object> CustomStateProvider { get; set; }
-
-        /// <summary>
-		/// Severity of error.
-		/// </summary>
-		public Severity Severity { get; set; }
-
         // <summary>
         /// Retrieves the unformatted error message template.
         /// </summary>

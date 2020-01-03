@@ -17,16 +17,11 @@ namespace ValidationFramework
 		/// </summary>
 		public static CascadeMode CascadeMode = CascadeMode.Continue;
 
-        /// <summary>
-		/// Disables the expression accessor cache. Not recommended.
-		/// </summary>
-		public static bool DisableAccessorCache { get; set; }
-
         private static Func<PropertyValidator, string> _errorCodeResolver = DefaultErrorCodeResolver;
 
         private static Func<MessageFormatter> _messageFormatterFactory = () => new MessageFormatter();
         /// <summary>
-		/// Specifies a factory for creating MessageFormatter instances.
+		/// Specifies a factory for creating MessageFormatter instances
 		/// </summary>
 		public static Func<MessageFormatter> MessageFormatterFactory
         {
@@ -57,13 +52,6 @@ namespace ValidationFramework
         {
             return validator.GetType().Name;
         }
-
-        static string DefaultDisplayNameResolver(Type type, MemberInfo memberInfo, LambdaExpression expression)
-        {
-            return memberInfo == null ? null : DisplayNameCache.GetCachedDisplayName(memberInfo);
-        }
-
-
     }
 
 }
