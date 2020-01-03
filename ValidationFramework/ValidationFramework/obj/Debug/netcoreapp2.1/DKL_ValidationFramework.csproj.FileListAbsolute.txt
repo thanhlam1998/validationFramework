@@ -1,0 +1,11 @@
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\bin\Debug\netcoreapp2.1\DKL_ValidationFramework.deps.json
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\bin\Debug\netcoreapp2.1\DKL_ValidationFramework.runtimeconfig.json
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\bin\Debug\netcoreapp2.1\DKL_ValidationFramework.runtimeconfig.dev.json
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\bin\Debug\netcoreapp2.1\DKL_ValidationFramework.dll
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\bin\Debug\netcoreapp2.1\DKL_ValidationFramework.pdb
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\obj\Debug\netcoreapp2.1\DKL_ValidationFramework.csprojAssemblyReference.cache
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\obj\Debug\netcoreapp2.1\DKL_ValidationFramework.csproj.CoreCompileInputs.cache
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\obj\Debug\netcoreapp2.1\DKL_ValidationFramework.AssemblyInfoInputs.cache
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\obj\Debug\netcoreapp2.1\DKL_ValidationFramework.AssemblyInfo.cs
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\obj\Debug\netcoreapp2.1\DKL_ValidationFramework.dll
+D:\STUDY\Mẫu thiết kế hướng đối tượng\new_change\validationFramework\ValidationFramework\ValidationFramework\obj\Debug\netcoreapp2.1\DKL_ValidationFramework.pdb

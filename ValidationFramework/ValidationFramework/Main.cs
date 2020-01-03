@@ -8,21 +8,16 @@ namespace ValidationFramework
 {
     class Customer
     {
+
         public string Name { get; set; }
         public string Address { get; set; }
     }
 
-    class Boss
+    class CustomValidate : AbstractValidation<Customer>
     {
-        public string name { get; set; }
-    }
-
-    class CustomerValidation : AbstractValidation<Customer>
-    {
-        public CustomerValidation()
+        public CustomValidate()
         {
-            RuleFor(Customer => Customer.Address).NotEmpty().NotNull().Must(Address => Address.Length > 5).WithMessage("Must >5 characters");
-            RuleFor(Customer => Customer.Address).Must(Address => Address.Length > 10).WithMessage("Must >10 characters");
+            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty();
         }
     }
 
@@ -30,20 +25,17 @@ namespace ValidationFramework
     {
         public static void Main(string[] args)
         {
-            string str;
-            Console.Write("Nhap 1 chuoi bat ki: ");
-            str = Console.ReadLine();
-            Customer cus = new Customer();
-            Boss boss = new Boss();
-            cus.Address = str;
-            CustomerValidation validate = new CustomerValidation();
-            ValidationResult results = validate.Validate(cus);
-            if (!results.IsValid)
+
+            Customer customer = new Customer();
+            CustomValidate validate = new CustomValidate();
+
+            Console.Write("Nhap ten khach hang: ");
+            customer.Name = Console.ReadLine();
+            ValidationResult result = validate.Validate(customer);
+
+            foreach(var results in result.Errors)
             {
-                foreach (var failure in results.Errors) 
-                {
-                    Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-                }
+                Console.WriteLine("Property " + results.PropertyName + " failed validation. Error was: " + results.ErrorMessage);
             }
         }
     }

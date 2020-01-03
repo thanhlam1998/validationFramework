@@ -687,9 +687,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\new_change\\validationFramework\\ValidationFramework\\ValidationFramework\\ValidationFramework.csproj",
-      "projectName": "ValidationFramework",
-      "projectPath": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\new_change\\validationFramework\\ValidationFramework\\ValidationFramework\\ValidationFramework.csproj",
+      "projectUniqueName": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\new_change\\validationFramework\\ValidationFramework\\ValidationFramework\\DKL_ValidationFramework.csproj",
+      "projectName": "DKL_ValidationFramework",
+      "projectPath": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\new_change\\validationFramework\\ValidationFramework\\ValidationFramework\\DKL_ValidationFramework.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
       "outputPath": "D:\\STUDY\\Mẫu thiết kế hướng đối tượng\\new_change\\validationFramework\\ValidationFramework\\ValidationFramework\\obj\\",
       "projectStyle": "PackageReference",
