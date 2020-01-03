@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>DKL Team</Authors>
+    <Company>hcmus</Company>
+    <Product>DKL Validation</Product>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright (c) 2020</Copyright>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

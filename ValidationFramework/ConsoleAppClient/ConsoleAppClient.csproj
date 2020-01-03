@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DKL_Validation" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DKL_Validation">
+      <HintPath>..\DKL_Validation\bin\Release\netstandard2.0\DKL_Validation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
