@@ -5,6 +5,6 @@ C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin
 C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin\Release\netcoreapp2.1\ConsoleAppClient.runtimeconfig.json
 C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin\Release\netcoreapp2.1\ConsoleAppClient.runtimeconfig.dev.json
 C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin\Release\netcoreapp2.1\ConsoleAppClient.dll
-C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin\Release\netcoreapp2.1\DKL_Validation.dll
-C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin\Release\netcoreapp2.1\DKL_Validation.pdb
-C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\obj\Release\netcoreapp2.1\ConsoleAppClient.csproj.CopyComplete
+C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\bin\Release\netcoreapp2.1\ConsoleAppClient.pdb
+C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\obj\Release\netcoreapp2.1\ConsoleAppClient.dll
+C:\working-projects\validationFramework\ValidationFramework\ConsoleAppClient\obj\Release\netcoreapp2.1\ConsoleAppClient.pdb

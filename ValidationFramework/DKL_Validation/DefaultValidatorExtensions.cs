@@ -34,6 +34,12 @@ namespace DKL_Validation
             return ruleBuilder.SetValidator(new NotEmptyValidator(default(TProperty)));
         }
 
+        //Email validator extensions
+        public static IRuleBuilderOptions<T, TProperty> ValidEmail<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder)
+        {
+            return ruleBuilder.SetValidator(new EmailValidator(default(TProperty)));
+        }
+
         /// <summary>
 		/// Defines a predicate validator on the current rule builder using a lambda expression to specify the predicate.
 		/// Validation will fail if the specified lambda returns false.
