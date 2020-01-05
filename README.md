@@ -7,8 +7,10 @@ _Tham khảo từ [FluentValidation Framework](https://github.com/JeremySkinner/
 `Validation Framework` cung cấp các loại xác thực như:
 
 - Chuỗi được nhập không rỗng.
-- Dữ liệu nhập vào khác null.
+- Dữ liệu nhập vào khác null.   
 - Kiểm tra dữ liệu nhập vào có phải là email hay không.
+- Dữ liệu nhập vào có bằng với yêu cầu hay không.
+- Dữ liệu nhập vào có khác với yêu cầu hy không.
 - Kiểm tra chung các điều kiện.
 
 ## Cài đặt
@@ -59,18 +61,18 @@ Cú pháp:
 RuleFor(<ClassName> => <ClassName>.<Property>).<Validators>;
 ```
 
-Ví dụ, để kiểm tra tên của đối tượng `Customer` dài hơn 10 ký tự, ta viết mã nguồn như sau:
+Ví dụ, để kiểm tra tên của đối tượng `Customer` không được rỗng, ta viết mã nguồn như sau:
 
 ```C#
 class CustomValidate : AbstractValidation<Customer>
 {
     public CustomValidate()
     {
-        RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10);
+        RuleFor(Customer => Customer.Name).NotEmpty();
     }
 }
 ```
-Như vậy, nếu nhập vào thông tin tên của đối tượng `Customer`, `Validator` sẽ thông báo đối tượng không hợp lệ.
+Như vậy, nếu nhập vào thông tin tên của đối tượng `Customer` rỗng, `Validator` sẽ thông báo đối tượng không hợp lệ.
 
 5.Tạo thông báo lỗi tùy chỉnh cho `validator`
 
@@ -82,7 +84,7 @@ class CustomValidate : AbstractValidation<Customer>
 {
     public CustomValidate()
     {
-        RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Customer Name must be more than 10 characters!");
+        RuleFor(Customer => Customer.Name).NotEmpty().WithMessage("Customer name must not be empty!");
     }
 }
 ```
@@ -95,7 +97,30 @@ class CustomValidate : AbstractValidation<Customer>
 {
     public CustomValidate()
     {
-        RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Customer Name must be more than 10 characters!").NotNull();
+        RuleFor(Customer => Customer.Name).NotEmpty().WithMessage("Customer name must not be empty!").NotNull();
     }
 }
 ```
+7. Quy tắc tùy chỉnh (Custom rule)
+
+`Validation Framework` cho phép bạn tạo ra các rules tùy chình dựa theo nhu cầu của mình. Ví dụ, bạn cần kiểm tra dữ liệu nhập vào có độ dài lớn hơn độ dài tối thiểu hay không, ta có thể làm như sau:
+```C#
+class CustomValidate : AbstractValidation<Customer>
+{
+    public CustomValidate()
+    {
+        RuleFor(Customer => Customer.Name).NotEmpty().WithMessage("Customer name must not be empty!").NotNull().Must(Name => Name.Length > 10).WithMessage("Customer name must be more than 10 characters");
+    }
+}
+```
+_Lưu ý:_ Với các rule tùy chỉnh, bạn cần dùng `WithMessage` để đặc tả thông báo lỗi cho rule. Nếu không có, thông báo lỗi sẽ rỗng.
+
+8. Danh sách các rule mặc định
+
+| Rule | Mô tả |
+|------|-------|
+| NotNull | Dữ nhiệu nhập vào phải khác `null` |
+| NotEmpty | Dữ liệu nhập vào khác rỗng |
+| Equal | Dữ liệu nhập vào phải bằng giá trị được cung cấp |
+| NotEqual | Dữ liệu nhập vào phải khác giá trị được cung cấp |
+| ValidEmail | Dữ liệu nhập vào đúng định dạng email |
