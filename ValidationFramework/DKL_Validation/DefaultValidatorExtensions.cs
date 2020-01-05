@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using DKL_Validation.Validators;
 using DKL_Validation.Internal;
+using System.Linq.Expressions;
 
 namespace DKL_Validation
 {
     public static class DefaultValidatorExtensions
     {
+        static ValidatorFactory validatorFactory = new ValidatorFactory();
         /// <summary>
 		/// Defines a 'not null' validator on the current rule builder.
 		/// Validation will fail if the property is null.
@@ -18,7 +20,7 @@ namespace DKL_Validation
 		/// <returns></returns>
 		public static IRuleBuilderOptions<T, TProperty> NotNull<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder)
         {
-            return ruleBuilder.SetValidator(new NotNullValidator());
+            return ruleBuilder.SetValidator(validatorFactory.NotNullValidator());
         }
 
         /// <summary>
@@ -31,13 +33,36 @@ namespace DKL_Validation
         /// <returns></returns>
         public static IRuleBuilderOptions<T, TProperty> NotEmpty<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder)
         {
-            return ruleBuilder.SetValidator(new NotEmptyValidator(default(TProperty)));
+            return ruleBuilder.SetValidator(validatorFactory.NotEmptyValidator(default(TProperty)));
         }
 
         //Email validator extensions
         public static IRuleBuilderOptions<T, TProperty> ValidEmail<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder)
         {
-            return ruleBuilder.SetValidator(new EmailValidator(default(TProperty)));
+            return ruleBuilder.SetValidator(validatorFactory.ValidEmailValidator(default(TProperty)));
+        }
+
+        public static IRuleBuilderOptions<T, TProperty> Equal<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder, TProperty toCompare)
+        {
+            return ruleBuilder.SetValidator(validatorFactory.EqualValidator(toCompare));
+        }
+
+        public static IRuleBuilderOptions<T, TProperty> Equal<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder, Expression<Func<T, TProperty>> expression)
+        {
+            var func = expression.Compile();
+            return ruleBuilder.SetValidator(validatorFactory.EqualValidator(func.CoerceToNonGeneric(), expression.GetMember()));
+        }
+
+        public static IRuleBuilderOptions<T, TProperty> NotEqual<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder,
+                                                                               TProperty toCompare)
+        {
+            return ruleBuilder.SetValidator(validatorFactory.NotEqualValidator(toCompare));
+        }
+
+        public static IRuleBuilderOptions<T, TProperty> NotEqual<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder, Expression<Func<T, TProperty>> expression)
+        {
+            var func = expression.Compile();
+            return ruleBuilder.SetValidator(validatorFactory.NotEqualValidator(func.CoerceToNonGeneric(), expression.GetMember()));
         }
 
         /// <summary>

@@ -12,8 +12,11 @@ namespace DKL_Validation.Resources
         public VietnameseLanguage()
         {
             Console.OutputEncoding = Encoding.UTF8;
-            Translate<NotEmptyValidator>("'{PropertyName}' không được để kí tự trống.");
-            Translate<NotNullValidator>("'{PropertyName}' không được bỏ trống.");
+            Translate<NotEmptyValidator>("'{PropertyName}' không được để trống.");
+            Translate<NotNullValidator>("'{PropertyName}' không được để null.");
+            Translate<EmailValidator>("'{PropertyName}' không phải là email đúng.");
+            Translate<EqualValidator>("'{PropertyName}' phải bằng với '{ComparisonValue}'.");
+            Translate<NotEqualValidator>("'{PropertyName}' không được bằng với '{ComparisonValue}'.");
         }
     }
 }

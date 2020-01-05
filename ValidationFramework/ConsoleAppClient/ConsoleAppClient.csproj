@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DKL_Validation" Version="1.0.0" />
+    <ProjectReference Include="..\DKL_Validation\DKL_Validation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using System;
 
 using DKL_Validation;
-using ValidationResult = DKL_Validation.Results.ValidationResult;
+using DKL_Validation.Results;
 
 namespace ConsoleAppClient
 {
@@ -28,13 +28,14 @@ namespace ConsoleAppClient
 
         public string Name { get; set; }
         public string Address { get; set; }
+        public int stt { get; set; }
     }
 
     class CustomValidate : AbstractValidation<Customer>
     {
         public CustomValidate()
         {
-            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty();
+            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty().Equal(Customer=>Customer.Address);
         }
     }
 }
