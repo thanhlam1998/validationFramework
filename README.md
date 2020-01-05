@@ -132,3 +132,4 @@ ValidatorOptions.LanguageManager.Culture = new CultureInfo("vi");
 | Equal | Dữ liệu nhập vào phải bằng giá trị được cung cấp |
 | NotEqual | Dữ liệu nhập vào phải khác giá trị được cung cấp |
 | ValidEmail | Dữ liệu nhập vào đúng định dạng email |
+| Null | Dữ liệu cần kiểm tra phải bằng `null` |
