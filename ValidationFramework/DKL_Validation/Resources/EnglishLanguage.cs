@@ -15,6 +15,7 @@ namespace DKL_Validation.Resources
             Translate<EmailValidator>("'{PropertyName}' is not a valid email address.");
             Translate<NotEmptyValidator>("'{PropertyName}' must not be empty.");
             Translate<NotNullValidator>("'{PropertyName}' must not be empty.");
+            Translate<NullValidator>("'{PropertyName} must be null'");
             Translate<EqualValidator>("'{PropertyName}' must be equal to '{ComparisonValue}'.");
             Translate<NotEqualValidator>("'{PropertyName}' must not be equal to '{ComparisonValue}'.");
         }

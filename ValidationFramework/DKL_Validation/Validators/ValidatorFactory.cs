@@ -11,6 +11,11 @@ namespace DKL_Validation.Validators
         {
             return new NotNullValidator();
         }
+        
+        public IPropertyValidator NullValidator()
+        {
+            return new NullValidator();
+        }
 
         public IPropertyValidator NotEmptyValidator(object defaultValue)
         {

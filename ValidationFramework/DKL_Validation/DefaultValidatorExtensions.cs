@@ -22,6 +22,11 @@ namespace DKL_Validation
         {
             return ruleBuilder.SetValidator(validatorFactory.NotNullValidator());
         }
+        
+        public static IRuleBuilderOptions<T, TProperty> Null<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder)
+        {
+            return ruleBuilder.SetValidator(validatorFactory.NullValidator());
+        }
 
         /// <summary>
         /// Defines a 'not empty' validator on the current rule builder.

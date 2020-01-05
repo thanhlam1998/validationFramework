@@ -36,7 +36,7 @@ namespace ConsoleAppClient
         public CustomValidate()
         {
             ValidatorOptions.LanguageManager.Culture = new CultureInfo("vi");
-            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty().Equal("khang");
+            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty().Equal("khang").Null();
         }
     }
 }
