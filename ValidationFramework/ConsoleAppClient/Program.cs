@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Globalization;
 using DKL_Validation;
 using DKL_Validation.Results;
 
@@ -35,7 +35,8 @@ namespace ConsoleAppClient
     {
         public CustomValidate()
         {
-            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty().Equal(Customer=>Customer.Address);
+            ValidatorOptions.LanguageManager.Culture = new CultureInfo("vi");
+            RuleFor(Customer => Customer.Name).Must(Name => Name.Length > 10).WithMessage("Chua du 10 ki tu").NotEmpty().Equal("khang");
         }
     }
 }

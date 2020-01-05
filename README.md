@@ -115,6 +115,14 @@ class CustomValidate : AbstractValidation<Customer>
 ```
 _Lưu ý:_ Với các rule tùy chỉnh, bạn cần dùng `WithMessage` để đặc tả thông báo lỗi cho rule. Nếu không có, thông báo lỗi sẽ rỗng.
 
+9. Tùy chọn ngôn ngữ hiển thị lỗi
+
+`Validation Framework` cho phép bạn tùy chọn ngon ngữ hiển thị lỗi. Hiện tại, framework đang hỗ trợ 02 ngôn ngữ là tiếng Anh "en" và tiếng Việt "vi".
+
+Để sử dụng, trong hàm khởi tạo CustomValidator, ta thêm dòng mã nguồn sau:
+```C#
+ValidatorOptions.LanguageManager.Culture = new CultureInfo("vi");
+```
 8. Danh sách các rule mặc định
 
 | Rule | Mô tả |
